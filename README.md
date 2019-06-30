@@ -1,4 +1,6 @@
-**This fork is for TP3 - Améliorer une conception logicielle of cours MGL802 Principes et applications de la conception de logiciels
+# About this fork
+
+It is for TP3 - Améliorer une conception logicielle of cours MGL802 Principes et applications de la conception de logiciels.
 
 Students: Lifeng Wan, Michel Hervé Norcéide
 
