@@ -5,8 +5,6 @@ It is for TP3 - Améliorer une conception logicielle of cours MGL802 Principes e
 Students: Lifeng Wan, Michel Hervé Norcéide
 
 
-# Original project info:
-
 # Billing-System
 A GUI Based Complete Store Billing System in java that generates Invoice of each sale.
 
