@@ -3,6 +3,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+import javax.swing.AbstractAction;
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -10,25 +11,22 @@ import javax.swing.JPanel;
 import javax.swing.JMenu;
 import java.awt.Toolkit;
 
-
-public class AdminPanel extends JFrame implements ActionListener {
+@SuppressWarnings("serial")
+public  class AdminPanel extends JFrame implements ActionListener {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	JMenuItem itmAddProduct;
-	JMenu mnProduct;
-	JMenuItem itmUpdateProduct;
-	JMenuItem itmDeleteProduct;
-	JMenu mnCashier ;
-	JMenuItem itmDeleteCashier;
-	JMenuItem itmAddCashier;
-	JMenu mnStock ;
-	JMenuItem itmShowStock;
+	JMenu mnProduct;	
+	JMenu mnCashier ;	
+	JMenu mnStock ;	
 	JMenu mnExport;
 	ArrayList<JPanel> panels=new ArrayList<JPanel>();
 	int cPanel=0;
-	private JMenu mnSearch;
-	private JMenuItem mntmSearchProduct;
-	private JMenuItem mntmSearchCashier;
+	private JMenu mnSearch;	
 	private JMenu mnSale;
-	private JMenuItem mntmPrintSale;
+	
 
 	
 	/**
@@ -44,65 +42,42 @@ public class AdminPanel extends JFrame implements ActionListener {
 		setJMenuBar(menuBar);
 		
 		mnProduct = new JMenu("Product");
-		menuBar.add(mnProduct);
+		menuBar.add(mnProduct);	
 		
-		itmAddProduct = new JMenuItem("Add Product");
-		mnProduct.add(itmAddProduct);
-		itmAddProduct.addActionListener(this);
-		
-		itmUpdateProduct = new JMenuItem("Update Product");
-		mnProduct.add(itmUpdateProduct);
-		itmUpdateProduct.addActionListener(this);
-		
-		itmDeleteProduct = new JMenuItem("Delete Product");
-		mnProduct.add(itmDeleteProduct);
-		itmDeleteProduct.addActionListener(this);
-		
+		mnProduct.add(actAddProduct);	
+		mnProduct.add(actUpdateProduct);
+		mnProduct.add(actDeleteProduct);
+						
 		mnCashier = new JMenu("Cashier");
-		menuBar.add(mnCashier);
-		
-		itmAddCashier = new JMenuItem("Add Cashier");
-		mnCashier.add(itmAddCashier);
-		itmAddCashier.addActionListener(this);
-		
-		itmDeleteCashier = new JMenuItem("Delete Cashier");
-		mnCashier.add(itmDeleteCashier);
-		itmDeleteCashier.addActionListener(this);
-		
+		menuBar.add(mnCashier);		
+		mnCashier.add(actAddCashier);		
+		mnCashier.add(actDeleteCashier);
+				
 		mnStock = new JMenu("Stock");
-		menuBar.add(mnStock);
-		
-		itmShowStock = new JMenuItem("Show Stock");
-		mnStock.add(itmShowStock);
-		itmShowStock.addActionListener(this);
-		
+		menuBar.add(mnStock);				
+		mnStock.add(actShowStock);
+				
 		mnSearch = new JMenu("Search");
-		menuBar.add(mnSearch);
-		
-		mntmSearchProduct = new JMenuItem("Search Product");
-		mnSearch.add(mntmSearchProduct);
-		mntmSearchProduct.addActionListener(this);
-		
-		mntmSearchCashier = new JMenuItem("Search Cashier");
-		mnSearch.add(mntmSearchCashier);
+		menuBar.add(mnSearch);	
+		mnSearch.add(actSearchProduct);	
+		mnSearch.add(actSearchCashier);
 		
 		mnSale = new JMenu("Sale");
-		menuBar.add(mnSale);
+		menuBar.add(mnSale);	
 		
-		mntmPrintSale = new JMenuItem("Print Sale");
-		mnSale.add(mntmPrintSale);
-		mntmPrintSale.addActionListener(this);
-		
+		mnSale.add(actPrintSale);
+				
 		mnExport = new JMenu("Account");
 		menuBar.add(mnExport);
 		
-		JMenuItem logout = new JMenuItem("Logout");
-		mnExport.add(logout);
-		logout.addActionListener(this);
-		mntmSearchCashier.addActionListener(this);
+		//JMenuItem logout = new JMenuItem("Logout");
+		mnExport.add(actLogout);
+		//logout.addActionListener(this);
 		
+				
 		getContentPane().setLayout(new BorderLayout(0, 0));
 		
+		//ArrayList of command history
 		panels.add(new addProduct());
 		panels.add(new updateProduct());
 		panels.add(new deleteProduct());
@@ -116,104 +91,159 @@ public class AdminPanel extends JFrame implements ActionListener {
 		
 	}
 
+
+public AbstractAction actAddProduct = new AbstractAction("Add Product")
+{	
+	@Override
+	public void actionPerformed(ActionEvent e) {		
+		remove(panels.get(cPanel));
+		revalidate();
+		repaint();
+		getContentPane().add(panels.get(0));
+		setVisible(true);
+		cPanel=0;
+		setTitle("Add Product");
+	}
+};
+
+public AbstractAction actUpdateProduct = new AbstractAction("Update Product")
+{
+	
+	@Override
+	public void actionPerformed(ActionEvent e) {		
+		remove(panels.get(cPanel));
+		revalidate();
+		repaint();
+		getContentPane().add(panels.get(1));
+		setVisible(true);
+		cPanel=1;
+		setTitle("Update Product");
+	}
+};
+
+public AbstractAction actDeleteProduct = new AbstractAction("Delete Product")
+{	
+	@Override
+	public void actionPerformed(ActionEvent e) {		
+		remove(panels.get(cPanel));
+		revalidate();
+		repaint();
+		getContentPane().add(panels.get(2));
+		setVisible(true);
+		cPanel=2;
+		setTitle("Delete Product");
+	}
+};
+
+public AbstractAction actAddCashier = new AbstractAction("Add cashier")
+{	
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		
+		remove(panels.get(cPanel));
+		revalidate();
+		repaint();
+		getContentPane().add(panels.get(3));
+		setVisible(true);
+		cPanel=3;
+		setTitle("Add cashier");
+	}
+};
+
+
+public AbstractAction actDeleteCashier = new AbstractAction("Delete cashier")
+{
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		
+		remove(panels.get(cPanel));
+		revalidate();
+		repaint();
+		getContentPane().add(panels.get(4));
+		setVisible(true);
+		cPanel=4;
+		setTitle("Delete cashier");
+	}
+};
+
+
+public AbstractAction actShowStock = new AbstractAction("Show Stock")
+{
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		
+		remove(panels.get(cPanel));
+		revalidate();
+		repaint();
+		getContentPane().add(panels.get(5));
+		setVisible(true);
+		cPanel=5;
+		setTitle("Show stock");
+	}
+};
+
+public AbstractAction actSearchProduct = new AbstractAction("Search Product")
+{	
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		
+		remove(panels.get(cPanel));
+		revalidate();
+		repaint();
+		getContentPane().add(panels.get(6));
+		setVisible(true);
+		cPanel=6;
+		setTitle("Search Product");
+	}
+};
+
+
+public AbstractAction actSearchCashier = new AbstractAction("Search Cashier")
+{
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		
+		remove(panels.get(cPanel));
+		revalidate();
+		repaint();
+		getContentPane().add(panels.get(7));
+		setVisible(true);
+		cPanel=7;
+		setTitle("Search Cashier");
+	}
+};
+
+
+
+public AbstractAction actPrintSale = new AbstractAction("Print Sale")
+{
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		
+		remove(panels.get(cPanel));
+		revalidate();
+		repaint();
+		getContentPane().add(panels.get(8));
+		setVisible(true);
+		cPanel=8;
+		setTitle("Print Sale");
+	}
+};
+
+
+public AbstractAction actLogout = new AbstractAction("Logout")
+{	
+	@Override
+	public void actionPerformed(ActionEvent e) {		
+		dispose();
+	}
+};
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-		System.out.println("Selected: " + e.getActionCommand());   
-		if(e.getActionCommand().equals("Add Product"))
-		{
-			System.out.println(panels.get(cPanel));
-			this.remove(panels.get(cPanel));
-			this.revalidate();
-			this.repaint();
-			getContentPane().add(panels.get(0));
-			this.setVisible(true);
-			cPanel=0;
-			this.setTitle("Add Product");
-		}
-		else if(e.getActionCommand().equals("Update Product"))
-		{
-			this.remove(panels.get(cPanel));
-			this.revalidate();
-			this.repaint();
-			getContentPane().add(panels.get(1));
-			this.setVisible(true);
-			cPanel=1;
-			this.setTitle("Update Product");
-		}
-		else if(e.getActionCommand().equals("Delete Product"))
-		{
-			this.remove(panels.get(cPanel));
-			this.revalidate();
-			this.repaint();
-			getContentPane().add(panels.get(2));
-			this.setVisible(true);
-			cPanel=2;
-			this.setTitle("Delete Product");
-		}
-		else if(e.getActionCommand().equals("Add Cashier"))
-		{
-			this.remove(panels.get(cPanel));
-			this.revalidate();
-			this.repaint();
-			getContentPane().add(panels.get(3));
-			this.setVisible(true);
-			cPanel=3;
-			this.setTitle("Add Cashier");
-		}
-		else if(e.getActionCommand().equals("Delete Cashier"))
-		{
-			this.remove(panels.get(cPanel));
-			this.revalidate();
-			this.repaint();
-			getContentPane().add(panels.get(4));
-			this.setVisible(true);
-			cPanel=4;
-			this.setTitle("Delete Cashier");
-		}
-		else if(e.getActionCommand().equals("Show Stock"))
-		{
-			this.remove(panels.get(cPanel));
-			getContentPane().add(panels.get(5));
-			this.revalidate();
-			this.repaint();
-			this.setVisible(true);
-			cPanel=5;
-			this.setTitle("Show Stock");
-		}
-		else if(e.getActionCommand().equals("Search Product"))
-		{
-			this.remove(panels.get(cPanel));
-			getContentPane().add(panels.get(6));
-			this.revalidate();
-			this.repaint();
-			this.setVisible(true);
-			cPanel=6;
-			this.setTitle("Search Product");
-		}
-		else if(e.getActionCommand().equals("Search Cashier"))
-		{
-			this.remove(panels.get(cPanel));
-			getContentPane().add(panels.get(7));
-			this.revalidate();
-			this.repaint();
-			this.setVisible(true);
-			cPanel=7;
-			this.setTitle("Search Cashier");
-		}
-		else if(e.getActionCommand().equals("Print Sale"))
-		{
-			this.remove(panels.get(cPanel));
-			getContentPane().add(panels.get(8));
-			this.revalidate();
-			this.repaint();
-			this.setVisible(true);
-			cPanel=8;
-			this.setTitle("Print Sale");
-		}
-		else if(e.getActionCommand().equals("Logout"))
-		{
-			this.dispose();
-		}
+		
 	}
 }
+
+
